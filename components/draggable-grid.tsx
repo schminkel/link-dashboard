@@ -137,17 +137,6 @@ function DraggableGridContent({ links, onEdit, onOrderChange }: DraggableGridPro
 
   return (
     <div className="space-y-6">
-      {/* Global reordering indicator */}
-      {isReordering && (
-        <div className="flex items-center justify-center gap-3 p-4 bg-blue-900/20 border border-blue-500/30 rounded-lg backdrop-blur-sm">
-          <ReorderSpinner size="md" />
-          <div className="text-center">
-            <p className="text-blue-300 font-medium">Updating link order...</p>
-            <p className="text-blue-400/70 text-sm">Please wait while we save your changes</p>
-          </div>
-        </div>
-      )}
-
       {/* Optimized grid with better spacing for overlay elements */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 p-4">
         {localLinks.map((link) => (
