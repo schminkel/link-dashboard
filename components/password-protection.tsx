@@ -116,19 +116,20 @@ export function PasswordProtection({ children }: PasswordProtectionProps) {
 
   return (
     <div className="relative">
-      {/* Logout Button */}
-      <div className="fixed top-4 right-4 z-50">
+      {children}
+      {/* Logout Button - Bottom Right */}
+      <div className="fixed bottom-4 right-4 z-50">
         <Button
           onClick={handleLogout}
           variant="outline"
           size="sm"
-          className="bg-slate-900/80 backdrop-blur-sm border-slate-600 text-slate-300 hover:text-white hover:bg-slate-800/80"
+          className="h-10 w-10 p-0 bg-slate-900/80 backdrop-blur-sm border-slate-600 text-slate-400 hover:text-red-400 hover:bg-slate-800/80 rounded-full"
+          title="Logout"
         >
-          <LogOut className="h-4 w-4 mr-2" />
-          Logout
+          <LogOut className="h-4 w-4" />
+          <span className="sr-only">Logout</span>
         </Button>
       </div>
-      {children}
     </div>
   )
 }

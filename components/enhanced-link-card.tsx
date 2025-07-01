@@ -5,8 +5,8 @@ import { useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ExternalLink, Edit, Trash2 } from "lucide-react"
-import { deleteLink } from "@/lib/actions"
 import { IconDisplay } from "./icon-display"
+import { DeleteConfirmationDialog } from "./delete-confirmation-dialog"
 import type { Link } from "@/lib/db"
 
 interface EnhancedLinkCardProps {
@@ -16,6 +16,7 @@ interface EnhancedLinkCardProps {
 
 export function EnhancedLinkCard({ link, onEdit }: EnhancedLinkCardProps) {
   const [isClicked, setIsClicked] = useState(false)
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false)
 
   const handleCardClick = () => {
     setIsClicked(true)
@@ -23,11 +24,9 @@ export function EnhancedLinkCard({ link, onEdit }: EnhancedLinkCardProps) {
     window.open(link.url, "_blank", "noopener,noreferrer")
   }
 
-  const handleDelete = async (e: React.MouseEvent) => {
+  const handleDelete = (e: React.MouseEvent) => {
     e.stopPropagation()
-    if (confirm("Are you sure you want to delete this link?")) {
-      await deleteLink(link.id)
-    }
+    setShowDeleteDialog(true)
   }
 
   const handleEdit = (e: React.MouseEvent) => {
@@ -36,58 +35,62 @@ export function EnhancedLinkCard({ link, onEdit }: EnhancedLinkCardProps) {
   }
 
   return (
-    <Card
-      className={`
-        group cursor-pointer transition-all duration-300 ease-in-out
-        bg-gradient-to-br from-slate-900/70 to-slate-800/50 
-        border-slate-700/40 backdrop-blur-sm
-        hover:border-blue-500/60 hover:shadow-xl hover:shadow-blue-500/10
-        hover:-translate-y-1 hover:scale-[1.02]
-        active:scale-95
-        ${isClicked ? "animate-pulse" : ""}
-      `}
-      onClick={handleCardClick}
-    >
-      <CardContent className="p-4">
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-3 flex-1 min-w-0">
-            <div className="flex-shrink-0 p-2 bg-slate-800/60 rounded-lg group-hover:bg-blue-500/20 transition-colors">
-              <IconDisplay
-                iconType={link.icon_type}
-                iconValue={link.icon_value}
-                className="h-5 w-5 text-slate-400 group-hover:text-blue-300 transition-colors"
-              />
+    <>
+      <Card
+        className={`
+          group cursor-pointer transition-all duration-300 ease-in-out
+          bg-gradient-to-br from-slate-900/70 to-slate-800/50 
+          border-slate-700/40 backdrop-blur-sm
+          hover:border-blue-500/60 hover:shadow-xl hover:shadow-blue-500/10
+          hover:-translate-y-1 hover:scale-[1.02]
+          active:scale-95
+          ${isClicked ? "animate-pulse" : ""}
+        `}
+        onClick={handleCardClick}
+      >
+        <CardContent className="p-4">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-3 flex-1 min-w-0">
+              <div className="flex-shrink-0 p-2 bg-slate-800/60 rounded-lg group-hover:bg-blue-500/20 transition-colors">
+                <IconDisplay
+                  iconType={link.icon_type}
+                  iconValue={link.icon_value}
+                  className="h-5 w-5 text-slate-400 group-hover:text-blue-300 transition-colors"
+                />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-semibold text-slate-100 group-hover:text-blue-300 transition-colors truncate text-base">
+                  {link.title}
+                </h3>
+              </div>
             </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="font-semibold text-slate-100 group-hover:text-blue-300 transition-colors truncate text-base">
-                {link.title}
-              </h3>
+            <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleEdit}
+                className="h-7 w-7 p-0 hover:bg-blue-500/20 hover:text-blue-300"
+              >
+                <Edit className="h-3.5 w-3.5" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleDelete}
+                className="h-7 w-7 p-0 hover:bg-red-500/20 hover:text-red-300"
+              >
+                <Trash2 className="h-3.5 w-3.5" />
+              </Button>
             </div>
           </div>
-          <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleEdit}
-              className="h-7 w-7 p-0 hover:bg-blue-500/20 hover:text-blue-300"
-            >
-              <Edit className="h-3.5 w-3.5" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleDelete}
-              className="h-7 w-7 p-0 hover:bg-red-500/20 hover:text-red-300"
-            >
-              <Trash2 className="h-3.5 w-3.5" />
-            </Button>
+          <div className="flex items-center gap-2 text-sm text-slate-400 group-hover:text-slate-300 transition-colors">
+            <ExternalLink className="h-3.5 w-3.5 flex-shrink-0" />
+            <span className="truncate text-xs">{link.url}</span>
           </div>
-        </div>
-        <div className="flex items-center gap-2 text-sm text-slate-400 group-hover:text-slate-300 transition-colors">
-          <ExternalLink className="h-3.5 w-3.5 flex-shrink-0" />
-          <span className="truncate text-xs">{link.url}</span>
-        </div>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+
+      <DeleteConfirmationDialog link={link} isOpen={showDeleteDialog} onClose={() => setShowDeleteDialog(false)} />
+    </>
   )
 }

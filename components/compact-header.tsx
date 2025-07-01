@@ -14,10 +14,10 @@ export function CompactHeader({ onAddLink }: CompactHeaderProps) {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-blue-600/20 rounded-lg border border-blue-500/20">
-              <LinkIcon className="h-5 w-5 text-blue-400" />
+              <LinkIcon className="text-blue-400 w-6 h-6" />
             </div>
             <div>
-              <h1 className="text-lg font-bold text-slate-100">Links Dashboard</h1>
+              <h1 className="font-bold text-slate-100 mx-0 my-0 py-0 leading-6 text-2xl">Links Dashboard</h1>
             </div>
           </div>
           <Button
