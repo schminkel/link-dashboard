@@ -68,19 +68,20 @@
   }
 }
 
-/* Link card drag and drop styles */
+/* Enhanced Link Card Styles */
 .draggable-card {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .draggable-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-2px) scale(1.01);
 }
 
 .draggable-card.dragging {
-  opacity: 0.5;
-  transform: scale(0.95);
+  opacity: 0.6;
+  transform: scale(0.98) rotate(1deg);
   pointer-events: none;
+  z-index: 50;
 }
 
 .draggable-card.reordering {
@@ -91,20 +92,20 @@
   animation: successFlash 1.5s ease-out;
 }
 
-/* Tab drag and drop styles */
+/* Compact Tab Styles */
 .draggable-tab {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .draggable-tab:hover {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .draggable-tab.dragging {
-  opacity: 0.5;
-  transform: scale(0.95) rotate(2deg);
+  opacity: 0.6;
+  transform: scale(0.95);
   pointer-events: none;
-  z-index: 50;
+  z-index: 40;
 }
 
 .draggable-tab.reordering {
@@ -115,101 +116,7 @@
   animation: tabSuccessFlash 1.5s ease-out;
 }
 
-/* Tab-specific animations */
-@keyframes tabReorderPulse {
-  0%,
-  100% {
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
-    transform: scale(1);
-  }
-  50% {
-    box-shadow: 0 0 25px rgba(59, 130, 246, 0.7);
-    transform: scale(1.02);
-  }
-}
-
-@keyframes tabSuccessFlash {
-  0% {
-    box-shadow: 0 0 15px rgba(34, 197, 94, 0.6);
-    transform: scale(1);
-  }
-  25% {
-    box-shadow: 0 0 30px rgba(34, 197, 94, 0.8);
-    transform: scale(1.05);
-  }
-  50% {
-    box-shadow: 0 0 35px rgba(34, 197, 94, 0.9);
-    transform: scale(1.03);
-  }
-  100% {
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
-    transform: scale(1);
-  }
-}
-
-/* Enhanced overlay button styles */
-.overlay-button {
-  backdrop-filter: blur(8px);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.overlay-button:hover {
-  transform: scale(1.05);
-  backdrop-filter: blur(12px);
-}
-
-.overlay-button:active {
-  transform: scale(0.95);
-}
-
-/* Drag handle specific styles */
-.drag-handle {
-  backdrop-filter: blur(8px);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.drag-handle:hover {
-  transform: scale(1.1);
-  backdrop-filter: blur(12px);
-}
-
-.drag-handle:active {
-  transform: scale(0.9);
-}
-
-/* Tab drag handle styles */
-.tab-drag-handle {
-  backdrop-filter: blur(8px);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.tab-drag-handle:hover {
-  transform: scale(1.1);
-  backdrop-filter: blur(12px);
-}
-
-.tab-drag-handle:active {
-  transform: scale(0.9);
-}
-
-/* Drop zone indicators */
-.tab-drop-indicator {
-  animation: tabDropPulse 1.5s ease-in-out infinite;
-}
-
-@keyframes tabDropPulse {
-  0%,
-  100% {
-    opacity: 0.6;
-    box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
-  }
-  50% {
-    opacity: 1;
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
-  }
-}
-
-/* Scrollbar hiding for tab navigation */
+/* Scrollbar hiding */
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -219,149 +126,175 @@
   display: none;
 }
 
-/* Card content optimization */
-.card-content-optimized {
-  padding: 1.5rem;
+/* Enhanced Grid Layout */
+.enhanced-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  padding: 0.5rem;
 }
 
-.card-content-optimized .icon-container {
-  padding: 0.75rem;
-  border-radius: 0.75rem;
+@media (min-width: 640px) {
+  .enhanced-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.25rem;
+    padding: 0.75rem;
+  }
 }
 
-.card-content-optimized .title {
-  font-size: 1.25rem;
-  line-height: 1.2;
-  font-weight: 600;
+@media (min-width: 1024px) {
+  .enhanced-grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+  }
 }
 
-.card-content-optimized .url {
-  font-size: 0.875rem;
-  font-weight: 500;
+@media (min-width: 1280px) {
+  .enhanced-grid {
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.75rem;
+  }
 }
 
+/* Compact Header Styles */
+.compact-header {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Enhanced Card Hover Effects */
+.enhanced-card {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.enhanced-card:hover {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Minimal Status Indicators */
+.status-indicator {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.status-indicator:hover {
+  opacity: 1;
+}
+
+/* Focus States for Accessibility */
+.draggable-card:focus-visible,
+.draggable-tab:focus-visible {
+  outline: 2px solid rgb(59 130 246);
+  outline-offset: 2px;
+}
+
+/* Loading States */
+.loading-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Compact Layout Optimizations */
+.compact-layout {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+@media (min-width: 1536px) {
+  .compact-layout {
+    max-width: 1400px;
+  }
+}
+
+/* Enhanced Animations */
 @keyframes reorderPulse {
   0%,
   100% {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+    transform: scale(1);
   }
   50% {
-    box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+    box-shadow: 0 0 25px rgba(59, 130, 246, 0.6);
+    transform: scale(1.01);
   }
 }
 
 @keyframes successFlash {
   0% {
-    box-shadow: 0 0 20px rgba(34, 197, 94, 0.6);
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.6);
+    transform: scale(1);
+  }
+  25% {
+    box-shadow: 0 0 25px rgba(34, 197, 94, 0.8);
+    transform: scale(1.02);
   }
   50% {
-    box-shadow: 0 0 40px rgba(34, 197, 94, 0.8);
+    box-shadow: 0 0 30px rgba(34, 197, 94, 0.9);
+    transform: scale(1.01);
   }
   100% {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+    transform: scale(1);
   }
 }
 
-/* Loading spinner enhancement */
-@keyframes spinGlow {
+@keyframes tabReorderPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.7);
+    transform: scale(1.01);
+  }
+}
+
+@keyframes tabSuccessFlash {
   0% {
-    transform: rotate(0deg);
-    filter: drop-shadow(0 0 2px rgba(59, 130, 246, 0.5));
+    box-shadow: 0 0 10px rgba(34, 197, 94, 0.6);
+    transform: scale(1);
+  }
+  25% {
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.8);
+    transform: scale(1.02);
   }
   50% {
-    filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.8));
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.9);
+    transform: scale(1.01);
   }
   100% {
-    transform: rotate(360deg);
-    filter: drop-shadow(0 0 2px rgba(59, 130, 246, 0.5));
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+    transform: scale(1);
   }
 }
 
-.animate-spin {
-  animation: spinGlow 1s linear infinite;
-}
-
-/* Smooth transitions for state changes */
-.card-transition {
+/* Smooth Transitions */
+.smooth-transition {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.fade-in {
-  animation: fadeIn 0.3s ease-out;
+.quick-transition {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Grid spacing optimization */
-.optimized-grid {
-  gap: 1.5rem;
-  padding: 1rem;
-}
-
-@media (min-width: 768px) {
-  .optimized-grid {
-    gap: 2rem;
-    padding: 1.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .optimized-grid {
-    gap: 2.5rem;
-    padding: 2rem;
-  }
-}
-
-/* Tab navigation enhancements */
-.tab-navigation {
-  position: relative;
-  overflow: hidden;
-}
-
-.tab-navigation::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(15, 23, 42, 0.8) 0%,
-    transparent 10%,
-    transparent 90%,
-    rgba(15, 23, 42, 0.8) 100%
-  );
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* Tab hover effects */
-.tab-button {
-  position: relative;
-  overflow: hidden;
-}
-
-.tab-button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-  transition: left 0.5s;
-}
-
-.tab-button:hover::before {
-  left: 100%;
+/* Enhanced Focus Management */
+.focus-ring:focus-visible {
+  outline: 2px solid rgb(59 130 246);
+  outline-offset: 2px;
+  border-radius: 0.375rem;
 }

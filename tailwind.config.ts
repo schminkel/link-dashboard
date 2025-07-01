@@ -1,9 +1,15 @@
 import type { Config } from "tailwindcss"
-import animatePlugin from "tailwindcss-animate"
 
 const config: Config = {
   darkMode: ["class"],
-  content: ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}", "*.{js,ts,jsx,tsx,mdx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+    "*.{js,ts,jsx,tsx,mdx}",
+  ],
+  prefix: "",
   theme: {
     container: {
       center: true,
@@ -53,7 +59,6 @@ const config: Config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
-      /* --- custom keyframes --- */
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -63,30 +68,101 @@ const config: Config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "glow-pulse": {
+        reorderPulse: {
           "0%, 100%": {
-            boxShadow: "0 0 20px rgba(59,130,246,.3), 0 0 40px rgba(59,130,246,.1)",
+            boxShadow: "0 0 20px rgba(59, 130, 246, 0.3)",
           },
           "50%": {
-            boxShadow: "0 0 30px rgba(59,130,246,.5), 0 0 60px rgba(59,130,246,.2)",
+            boxShadow: "0 0 30px rgba(59, 130, 246, 0.6)",
           },
         },
-        "click-effect": {
-          "0%": { transform: "scale(1)" },
-          "50%": { transform: "scale(.95)" },
-          "100%": { transform: "scale(1)" },
+        successFlash: {
+          "0%": {
+            boxShadow: "0 0 20px rgba(34, 197, 94, 0.6)",
+          },
+          "50%": {
+            boxShadow: "0 0 40px rgba(34, 197, 94, 0.8)",
+          },
+          "100%": {
+            boxShadow: "0 0 20px rgba(59, 130, 246, 0.3)",
+          },
+        },
+        tabReorderPulse: {
+          "0%, 100%": {
+            boxShadow: "0 0 15px rgba(59, 130, 246, 0.4)",
+            transform: "scale(1)",
+          },
+          "50%": {
+            boxShadow: "0 0 25px rgba(59, 130, 246, 0.7)",
+            transform: "scale(1.02)",
+          },
+        },
+        tabSuccessFlash: {
+          "0%": {
+            boxShadow: "0 0 15px rgba(34, 197, 94, 0.6)",
+            transform: "scale(1)",
+          },
+          "25%": {
+            boxShadow: "0 0 30px rgba(34, 197, 94, 0.8)",
+            transform: "scale(1.05)",
+          },
+          "50%": {
+            boxShadow: "0 0 35px rgba(34, 197, 94, 0.9)",
+            transform: "scale(1.03)",
+          },
+          "100%": {
+            boxShadow: "0 0 15px rgba(59, 130, 246, 0.3)",
+            transform: "scale(1)",
+          },
+        },
+        tabDropPulse: {
+          "0%, 100%": {
+            opacity: "0.6",
+            boxShadow: "0 0 10px rgba(59, 130, 246, 0.5)",
+          },
+          "50%": {
+            opacity: "1",
+            boxShadow: "0 0 20px rgba(59, 130, 246, 0.8)",
+          },
+        },
+        spinGlow: {
+          "0%": {
+            transform: "rotate(0deg)",
+            filter: "drop-shadow(0 0 2px rgba(59, 130, 246, 0.5))",
+          },
+          "50%": {
+            filter: "drop-shadow(0 0 8px rgba(59, 130, 246, 0.8))",
+          },
+          "100%": {
+            transform: "rotate(360deg)",
+            filter: "drop-shadow(0 0 2px rgba(59, 130, 246, 0.5))",
+          },
+        },
+        fadeIn: {
+          from: {
+            opacity: "0",
+            transform: "translateY(10px)",
+          },
+          to: {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
         },
       },
-      /* --- custom animations --- */
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "glow-pulse": "glow-pulse 2s ease-in-out infinite",
-        "click-effect": "click-effect 0.2s ease-in-out",
+        reorderPulse: "reorderPulse 2s ease-in-out infinite",
+        successFlash: "successFlash 1.5s ease-out",
+        tabReorderPulse: "tabReorderPulse 2s ease-in-out infinite",
+        tabSuccessFlash: "tabSuccessFlash 1.5s ease-out",
+        tabDropPulse: "tabDropPulse 1.5s ease-in-out infinite",
+        spinGlow: "spinGlow 1s linear infinite",
+        fadeIn: "fadeIn 0.3s ease-out",
       },
     },
   },
-  plugins: [animatePlugin],
+  plugins: [require("tailwindcss-animate")],
 }
 
 export default config

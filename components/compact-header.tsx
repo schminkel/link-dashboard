@@ -1,0 +1,35 @@
+"use client"
+
+import { Button } from "@/components/ui/button"
+import { Plus, LinkIcon } from "lucide-react"
+
+interface CompactHeaderProps {
+  onAddLink: () => void
+}
+
+export function CompactHeader({ onAddLink }: CompactHeaderProps) {
+  return (
+    <div className="sticky top-0 z-30 bg-slate-900/95 backdrop-blur-sm border-b border-slate-700/30">
+      <div className="container mx-auto px-4 py-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-blue-600/20 rounded-lg border border-blue-500/20">
+              <LinkIcon className="h-5 w-5 text-blue-400" />
+            </div>
+            <div>
+              <h1 className="text-lg font-bold text-slate-100">Links Dashboard</h1>
+            </div>
+          </div>
+          <Button
+            onClick={onAddLink}
+            size="sm"
+            className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-blue-500/25"
+          >
+            <Plus className="h-4 w-4 mr-1" />
+            Add
+          </Button>
+        </div>
+      </div>
+    </div>
+  )
+}
