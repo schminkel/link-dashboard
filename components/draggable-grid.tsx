@@ -138,7 +138,7 @@ function DraggableGridContent({ links, onEdit, onOrderChange }: DraggableGridPro
   return (
     <div className="space-y-6">
       {/* Optimized grid with better spacing for overlay elements */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 p-0">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-0">
         {localLinks.map((link) => (
           <DraggableLinkCard
             key={link.id}

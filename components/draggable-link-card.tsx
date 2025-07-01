@@ -258,7 +258,7 @@ export function DraggableLinkCard({ link, onEdit, onDragEnd, temporaryOrder }: D
         <CardContent className="pt-0">
           {/* URL with full width */}
           <div
-            className={`flex items-center gap-3 text-sm transition-colors ${
+            className={`flex items-center gap-2 text-sm transition-colors ${
               isItemReordering ? "text-slate-300" : "text-slate-400 group-hover:text-slate-300"
             }`}
           >
