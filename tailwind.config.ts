@@ -1,18 +1,10 @@
 import type { Config } from "tailwindcss"
-import defaultConfig from "shadcn/ui/tailwind.config"
+import animatePlugin from "tailwindcss-animate"
 
 const config: Config = {
-  ...defaultConfig,
-  content: [
-    ...defaultConfig.content,
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
-    "*.{js,ts,jsx,tsx,mdx}",
-  ],
+  darkMode: ["class"],
+  content: ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}", "*.{js,ts,jsx,tsx,mdx}"],
   theme: {
-    ...defaultConfig.theme,
     container: {
       center: true,
       padding: "2rem",
@@ -21,9 +13,48 @@ const config: Config = {
       },
     },
     extend: {
-      ...defaultConfig.theme.extend,
+      colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+      /* --- custom keyframes --- */
       keyframes: {
-        ...defaultConfig.theme.extend.keyframes,
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -34,20 +65,20 @@ const config: Config = {
         },
         "glow-pulse": {
           "0%, 100%": {
-            boxShadow: "0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(59, 130, 246, 0.1)",
+            boxShadow: "0 0 20px rgba(59,130,246,.3), 0 0 40px rgba(59,130,246,.1)",
           },
           "50%": {
-            boxShadow: "0 0 30px rgba(59, 130, 246, 0.5), 0 0 60px rgba(59, 130, 246, 0.2)",
+            boxShadow: "0 0 30px rgba(59,130,246,.5), 0 0 60px rgba(59,130,246,.2)",
           },
         },
         "click-effect": {
           "0%": { transform: "scale(1)" },
-          "50%": { transform: "scale(0.95)" },
+          "50%": { transform: "scale(.95)" },
           "100%": { transform: "scale(1)" },
         },
       },
+      /* --- custom animations --- */
       animation: {
-        ...defaultConfig.theme.extend.animation,
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "glow-pulse": "glow-pulse 2s ease-in-out infinite",
@@ -55,7 +86,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [...defaultConfig.plugins, require("tailwindcss-animate")],
+  plugins: [animatePlugin],
 }
 
 export default config
