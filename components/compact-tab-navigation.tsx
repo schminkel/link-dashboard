@@ -36,7 +36,7 @@ function CompactTabNavigationContent({
   const { draggedTab, dragOverTab, dropPosition, setDraggedTab, setDragOverTab, setDropPosition } = useTabDragDrop()
   const { isReordering, setIsReordering, reorderingTabs, addReorderingTab, setReorderingTabs } = useTabReorderLoading()
 
-  const reorderTimeoutRef = useRef<NodeJS.Timeout>()
+  const reorderTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined)
   const dropZoneRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -244,15 +244,10 @@ function CompactTabNavigationContent({
   }, [handleTabDragEnd, setDraggedTab])
 
   return (
+<>
+    {showCategoryForm && <CategoryForm category={editingCategory} onClose={handleCloseForm} />}
     <div className="bg-slate-900/50 backdrop-blur-sm border-b border-slate-700/30">
       <div className="container mx-auto px-4">
-        {isReordering && (
-          <div className="flex items-center justify-center gap-2 py-2 bg-blue-900/20 border-b border-blue-500/30">
-            <ReorderSpinner size="sm" />
-            <p className="text-blue-300 text-xs font-medium">Updating order...</p>
-          </div>
-        )}
-
         <div
           ref={dropZoneRef}
           className="flex items-center gap-1 overflow-x-auto scrollbar-hide py-2"
@@ -309,8 +304,9 @@ function CompactTabNavigationContent({
         </div>
       </div>
 
-      {showCategoryForm && <CategoryForm category={editingCategory} onClose={handleCloseForm} />}
+      
     </div>
+    </>
   )
 }
 

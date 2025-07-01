@@ -143,13 +143,7 @@ function DashboardContent() {
             </div>
           ) : (
             <div className="space-y-4">
-              {/* Minimal Status Bar */}
-              <div className="flex items-center justify-between text-xs text-slate-500">
-                <span>
-                  {links.length} {links.length === 1 ? "link" : "links"}
-                </span>
-                <span>Drag to reorder</span>
-              </div>
+
 
               {/* Enhanced Grid Layout */}
               <DraggableGrid links={links} onEdit={handleEdit} onOrderChange={handleOrderChange} />

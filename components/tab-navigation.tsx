@@ -37,7 +37,7 @@ function TabNavigationContent({
   const { draggedTab, dragOverTab, dropPosition, setDraggedTab, setDragOverTab, setDropPosition } = useTabDragDrop()
   const { isReordering, setIsReordering, reorderingTabs, addReorderingTab, setReorderingTabs } = useTabReorderLoading()
 
-  const reorderTimeoutRef = useRef<NodeJS.Timeout>()
+  const reorderTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const dropZoneRef = useRef<HTMLDivElement>(null)
 
   // Update local categories when props change (but not during reordering)

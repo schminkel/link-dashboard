@@ -19,7 +19,7 @@ function DraggableGridContent({ links, onEdit, onOrderChange }: DraggableGridPro
   const [temporaryOrder, setTemporaryOrder] = useState<Map<number, number>>(new Map())
   const { draggedItem, dragOverItem, dropPosition, setDraggedItem, setDragOverItem, setDropPosition } = useDragDrop()
   const { isReordering, setIsReordering, addReorderingItem, setReorderingItems } = useReorderLoading()
-  const reorderTimeoutRef = useRef<NodeJS.Timeout>()
+  const reorderTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined)
 
   // Update local links when props change (but not during reordering)
   useEffect(() => {
@@ -138,7 +138,7 @@ function DraggableGridContent({ links, onEdit, onOrderChange }: DraggableGridPro
   return (
     <div className="space-y-6">
       {/* Optimized grid with better spacing for overlay elements */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 p-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 p-0">
         {localLinks.map((link) => (
           <DraggableLinkCard
             key={link.id}
