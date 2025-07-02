@@ -24,46 +24,22 @@
 
 /* Additional styles for header with safe area insets */
 @supports (padding-top: env(safe-area-inset-top)) {
-  /* The blur background that extends into the safe area */
-  .safe-area-blur {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: env(safe-area-inset-top, 0);
-    background-color: rgba(15, 23, 42, 0.8); /* slate-900/80 - more transparent to match header */
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    z-index: 50; /* Above everything else, including header */
-    pointer-events: none; /* Allow clicks to pass through */
-  }
-  
-  /* The blur background for bottom safe area */
-  .safe-area-blur-bottom {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: env(safe-area-inset-bottom);
-    background-color: rgba(15, 23, 42, 0.95); /* slate-900/95 */
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    z-index: 29; /* Just below the header z-index */
-  }
-  
+  /* Safe area overlays for iOS standalone mode */
   .header-with-inset {
     /* Use full safe area inset */
     padding-top: env(safe-area-inset-top);
     margin-top: 0;
     /* Make header background more transparent to blend with blur */
     background-color: rgba(15, 23, 42, 0.8) !important;
+    position: sticky; /* Ensure header stays fixed at the top */
+    z-index: 90; /* Higher z-index to ensure it's above regular content */
   }
   
   .app-container {
-    /* Remove padding to avoid double spacing */
-    padding-top: 0;
-    /* Prevent scrolling behind modal overlays */
+    /* Important: Prevent content from scrolling behind the status bar */
+    padding-top: env(safe-area-inset-top, 0); /* Add padding to push content below safe area */
     overflow-x: hidden;
+    position: relative; /* Create a new stacking context */
   }
   
   /* Media query specifically for iOS in standalone mode */
@@ -71,8 +47,26 @@
     body {
       /* Remove margin to avoid double spacing */
       margin-top: 0;
-      /* Prevent content from scrolling behind the status bar */
-      padding-top: 0;
+      /* Create proper scrollable area */
+      height: 100%;
+      width: 100%;
+      position: fixed;
+      overflow: hidden;
+    }
+    
+    /* This ensures the actual scrollable content */
+    .app-container {
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch; /* Smoother scrolling on iOS */
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 100%;
+      width: 100%;
+      /* Prevent scrolling behind status bar */
+      padding-top: 0; /* We'll handle this differently */
     }
     
     /* Fixed position elements need special handling */
@@ -81,9 +75,16 @@
       padding-top: env(safe-area-inset-top, 0);
     }
     
-    /* Full-height containers need to account for safe areas */
+    /* Main content area needs to account for safe areas */
     .min-h-screen {
-      min-height: calc(100vh - env(safe-area-inset-top, 0) - env(safe-area-inset-bottom, 0));
+      min-height: calc(100vh - env(safe-area-inset-bottom, 0));
+      padding-top: env(safe-area-inset-top, 0); /* Push content below safe area */
+    }
+    
+    /* Adjust header position to stay fixed at top */
+    .sticky.top-0 {
+      top: env(safe-area-inset-top, 0);
+      position: sticky;
     }
   }
 }

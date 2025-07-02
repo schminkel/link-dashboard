@@ -65,8 +65,12 @@ export default function RootLayout({
         <link rel="apple-touch-startup-image" href="/apple-splash.svg" />
       </head>
       <body className={`${inter.className} app-container`}>
+        {/* StandaloneSafeArea must come first to ensure it's rendered at the top layer */}
         <StandaloneSafeArea />
-        {children}
+        {/* Wrapper div to ensure proper scrollable area with safe area insets */}
+        <div className="min-h-screen">
+          {children}
+        </div>
       </body>
     </html>
   )

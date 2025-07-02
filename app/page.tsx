@@ -24,21 +24,50 @@ function DashboardContent() {
 
   // Add this effect to ensure proper scrolling behavior in iOS standalone mode
   useEffect(() => {
-    // Prevent scrolling of the body behind modal overlays
-    document.documentElement.style.overflow = 'hidden';
-    document.documentElement.style.height = '100%';
-    document.body.style.overflow = 'auto';
-    document.body.style.height = '100%';
+    // Check if we're in standalone mode (iOS app mode)
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
     
-    // Prevent overscroll/bounce effect
+    if (isStandalone) {
+      // Configure for iOS app mode
+      document.documentElement.style.overflow = 'hidden';
+      document.documentElement.style.height = '100%';
+      document.documentElement.style.width = '100%';
+      document.documentElement.style.position = 'fixed';
+      
+      document.body.style.overflow = 'hidden'; 
+      document.body.style.height = '100%';
+      document.body.style.width = '100%';
+      document.body.style.position = 'relative';
+      
+      // Create a scrollable container that respects safe areas
+      const appContainer = document.querySelector('.app-container') as HTMLElement;
+      if (appContainer) {
+        appContainer.style.overflowY = 'auto';
+        // Use standard CSS property instead of TypeScript-incompatible vendor prefix
+        appContainer.style.setProperty('-webkit-overflow-scrolling', 'touch');
+        appContainer.style.position = 'absolute';
+        appContainer.style.top = '0';
+        appContainer.style.left = '0';
+        appContainer.style.right = '0';
+        appContainer.style.bottom = '0';
+        appContainer.style.height = '100%';
+      }
+    }
+    
+    // Prevent overscroll/bounce effect in all modes
     document.body.style.overscrollBehavior = 'none';
     
     return () => {
       // Clean up
       document.documentElement.style.overflow = '';
       document.documentElement.style.height = '';
+      document.documentElement.style.width = '';
+      document.documentElement.style.position = '';
+      
       document.body.style.overflow = '';
       document.body.style.height = '';
+      document.body.style.width = '';
+      document.body.style.position = '';
       document.body.style.overscrollBehavior = '';
     };
   }, []);
