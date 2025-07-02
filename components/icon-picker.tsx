@@ -638,138 +638,141 @@ export function IconPicker({ isOpen, onClose, onSelect, currentIcon }: IconPicke
                 </TabsTrigger>
               </TabsList>
 
-              <TabsContent value="predefined" className="mt-4">
-                <div className="grid grid-cols-6 gap-3 max-h-80 overflow-y-auto">
-                  {predefinedIcons.map((iconItem) => {
-                    const IconComponent = iconItem.icon
-                    return (
-                      <button
-                        key={iconItem.name}
-                        onClick={() => {
-                          setSelectedIcon(iconItem.name)
-                          setUploadedImage(null)
-                        }}
-                        className={`
-                          p-3 rounded-lg border transition-all duration-200 flex flex-col items-center gap-1
-                          ${
-                            selectedIcon === iconItem.name && selectedIconType === "predefined"
-                              ? "border-blue-500 bg-blue-500/20 text-blue-300"
-                              : "border-slate-600 bg-slate-800/50 text-slate-400 hover:border-slate-500 hover:text-slate-300"
-                          }
-                        `}
-                      >
-                        <IconComponent className="h-5 w-5" />
-                        <span className="text-xs truncate w-full">{iconItem.label}</span>
-                      </button>
-                    )
-                  })}
-                </div>
-              </TabsContent>
-
-              <TabsContent value="custom" className="mt-4">
-                <div className="space-y-4">
-                  {customIcons.length === 0 ? (
-                    <div className="text-center py-8 text-slate-400">
-                      <Upload className="h-12 w-12 mx-auto mb-4 text-slate-600" />
-                      <p>No custom icons yet</p>
-                      <p className="text-sm">Upload your first custom icon to get started</p>
-                    </div>
-                  ) : (
-                    <div className="grid grid-cols-6 gap-3 max-h-80 overflow-y-auto">
-                      {customIcons.map((icon) => (
-                        <div
-                          key={icon.id}
+              {/* Fixed height container for all tab content */}
+              <div className="h-[380px] mt-4 relative">
+                <TabsContent value="predefined" className="absolute inset-0">
+                  <div className="grid grid-cols-6 gap-3 h-full overflow-y-auto pr-1">
+                    {predefinedIcons.map((iconItem) => {
+                      const IconComponent = iconItem.icon
+                      return (
+                        <button
+                          key={iconItem.name}
+                          onClick={() => {
+                            setSelectedIcon(iconItem.name)
+                            setUploadedImage(null)
+                          }}
                           className={`
-                            relative group p-3 rounded-lg border transition-all duration-200 flex flex-col items-center gap-1 cursor-pointer
+                            p-3 rounded-lg border transition-all duration-200 flex flex-col items-center gap-1
                             ${
-                              selectedIcon === icon.id.toString() && selectedIconType === "custom"
+                              selectedIcon === iconItem.name && selectedIconType === "predefined"
                                 ? "border-blue-500 bg-blue-500/20 text-blue-300"
                                 : "border-slate-600 bg-slate-800/50 text-slate-400 hover:border-slate-500 hover:text-slate-300"
                             }
                           `}
-                          onClick={() => setSelectedIcon(icon.id.toString())}
                         >
-                          <img
-                            src={icon.data_url || "/placeholder.svg"}
-                            alt={icon.name}
-                            className="w-5 h-5 object-cover rounded"
-                          />
-                          <span className="text-xs truncate w-full">{icon.name}</span>
-                          <button
-                            onClick={(e) => handleDeleteCustomIcon(icon.id, e)}
-                            className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                          >
-                            <Trash2 className="h-3 w-3 text-white" />
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </TabsContent>
+                          <IconComponent className="h-5 w-5" />
+                          <span className="text-xs truncate w-full">{iconItem.label}</span>
+                        </button>
+                      )
+                    })}
+                  </div>
+                </TabsContent>
 
-              <TabsContent value="uploaded" className="mt-4">
-                <div className="space-y-4">
-                  <div className="border-2 border-dashed border-slate-600 rounded-lg p-8 text-center">
-                    {uploadedImage ? (
-                      <div className="flex flex-col items-center gap-4">
-                        <img
-                          src={uploadedImage || "/placeholder.svg"}
-                          alt="Uploaded icon"
-                          className="w-16 h-16 object-cover rounded-lg"
-                        />
-                        <div className="space-y-2 w-full max-w-xs">
-                          <Input
-                            value={iconName}
-                            onChange={(e) => setIconName(e.target.value)}
-                            placeholder="Enter icon name"
-                            className="bg-slate-800 border-slate-600 text-slate-100 placeholder:text-slate-400"
-                          />
-                          <div className="flex gap-2">
-                            <Button
-                              onClick={handleSaveCustomIcon}
-                              disabled={!iconName.trim()}
-                              className="flex-1 bg-green-600 hover:bg-green-700"
-                            >
-                              Save to Library
-                            </Button>
-                            <Button
-                              variant="outline"
-                              onClick={() => fileInputRef.current?.click()}
-                              className="border-slate-600 text-slate-300 hover:bg-slate-700"
-                            >
-                              Change
-                            </Button>
-                          </div>
-                        </div>
+                <TabsContent value="custom" className="absolute inset-0">
+                  <div className="h-full overflow-y-auto pr-1">
+                    {customIcons.length === 0 ? (
+                      <div className="text-center py-8 text-slate-400 flex flex-col items-center justify-center h-full">
+                        <Upload className="h-12 w-12 mx-auto mb-4 text-slate-600" />
+                        <p>No custom icons yet</p>
+                        <p className="text-sm">Upload your first custom icon to get started</p>
                       </div>
                     ) : (
-                      <div className="flex flex-col items-center gap-4">
-                        <Upload className="h-12 w-12 text-slate-500" />
-                        <div>
-                          <p className="text-slate-300 mb-2">Upload a custom icon</p>
-                          <p className="text-sm text-slate-500">PNG, JPG, SVG up to 2MB</p>
-                        </div>
-                        <Button
-                          variant="outline"
-                          onClick={() => fileInputRef.current?.click()}
-                          className="border-slate-600 text-slate-300 hover:bg-slate-700 bg-transparent"
-                        >
-                          <Upload className="h-4 w-4 mr-2" />
-                          Choose File
-                        </Button>
+                      <div className="grid grid-cols-6 gap-3">
+                        {customIcons.map((icon) => (
+                          <div
+                            key={icon.id}
+                            className={`
+                              relative group p-3 rounded-lg border transition-all duration-200 flex flex-col items-center gap-1 cursor-pointer
+                              ${
+                                selectedIcon === icon.id.toString() && selectedIconType === "custom"
+                                  ? "border-blue-500 bg-blue-500/20 text-blue-300"
+                                  : "border-slate-600 bg-slate-800/50 text-slate-400 hover:border-slate-500 hover:text-slate-300"
+                              }
+                            `}
+                            onClick={() => setSelectedIcon(icon.id.toString())}
+                          >
+                            <img
+                              src={icon.data_url || "/placeholder.svg"}
+                              alt={icon.name}
+                              className="w-5 h-5 object-cover rounded"
+                            />
+                            <span className="text-xs truncate w-full">{icon.name}</span>
+                            <button
+                              onClick={(e) => handleDeleteCustomIcon(icon.id, e)}
+                              className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                            >
+                              <Trash2 className="h-3 w-3 text-white" />
+                            </button>
+                          </div>
+                        ))}
                       </div>
                     )}
-                    <input
-                      ref={fileInputRef}
-                      type="file"
-                      accept="image/*"
-                      onChange={handleFileUpload}
-                      className="hidden"
-                    />
                   </div>
-                </div>
-              </TabsContent>
+                </TabsContent>
+
+                <TabsContent value="uploaded" className="absolute inset-0">
+                  <div className="h-full flex items-center">
+                    <div className="border-2 border-dashed border-slate-600 rounded-lg p-8 text-center w-full">
+                      {uploadedImage ? (
+                        <div className="flex flex-col items-center gap-4">
+                          <img
+                            src={uploadedImage || "/placeholder.svg"}
+                            alt="Uploaded icon"
+                            className="w-16 h-16 object-cover rounded-lg"
+                          />
+                          <div className="space-y-2 w-full max-w-xs">
+                            <Input
+                              value={iconName}
+                              onChange={(e) => setIconName(e.target.value)}
+                              placeholder="Enter icon name"
+                              className="bg-slate-800 border-slate-600 text-slate-100 placeholder:text-slate-400"
+                            />
+                            <div className="flex gap-2">
+                              <Button
+                                onClick={handleSaveCustomIcon}
+                                disabled={!iconName.trim()}
+                                className="flex-1 bg-green-600 hover:bg-green-700"
+                              >
+                                Save to Library
+                              </Button>
+                              <Button
+                                variant="outline"
+                                onClick={() => fileInputRef.current?.click()}
+                                className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                              >
+                                Change
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex flex-col items-center gap-4">
+                          <Upload className="h-12 w-12 text-slate-500" />
+                          <div>
+                            <p className="text-slate-300 mb-2">Upload a custom icon</p>
+                            <p className="text-sm text-slate-500">PNG, JPG, SVG up to 2MB</p>
+                          </div>
+                          <Button
+                            variant="outline"
+                            onClick={() => fileInputRef.current?.click()}
+                            className="border-slate-600 text-slate-300 hover:bg-slate-700 bg-transparent"
+                          >
+                            <Upload className="h-4 w-4 mr-2" />
+                            Choose File
+                          </Button>
+                        </div>
+                      )}
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileUpload}
+                        className="hidden"
+                      />
+                    </div>
+                  </div>
+                </TabsContent>
+              </div>
             </Tabs>
 
             <div className="flex gap-2 pt-6 border-t border-slate-700/50">
