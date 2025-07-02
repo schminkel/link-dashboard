@@ -22,6 +22,27 @@ function DashboardContent() {
   const [loading, setLoading] = useState(true)
   const [linkCounts, setLinkCounts] = useState<Record<number, number>>({})
 
+  // Add this effect to ensure proper scrolling behavior in iOS standalone mode
+  useEffect(() => {
+    // Prevent scrolling of the body behind modal overlays
+    document.documentElement.style.overflow = 'hidden';
+    document.documentElement.style.height = '100%';
+    document.body.style.overflow = 'auto';
+    document.body.style.height = '100%';
+    
+    // Prevent overscroll/bounce effect
+    document.body.style.overscrollBehavior = 'none';
+    
+    return () => {
+      // Clean up
+      document.documentElement.style.overflow = '';
+      document.documentElement.style.height = '';
+      document.body.style.overflow = '';
+      document.body.style.height = '';
+      document.body.style.overscrollBehavior = '';
+    };
+  }, []);
+
   useEffect(() => {
     loadInitialData()
   }, [])
