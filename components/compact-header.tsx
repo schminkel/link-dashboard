@@ -15,7 +15,7 @@ export function CompactHeader({ onAddLink }: CompactHeaderProps) {
   
   return (
     <>      
-      <div className={`px-2 sticky top-0 z-90 bg-slate-900/95 backdrop-blur-sm border-b border-slate-700/30 ${isStandalone ? 'header-with-inset' : ''}`}>
+      <div className={`px-2 sticky top-0 z-30 bg-slate-900/95 backdrop-blur-sm border-b border-slate-700/30 ${isStandalone ? 'header-with-inset' : ''}`}>
         <div className="container mx-auto px-4 py-3 ios-safe-area-left ios-safe-area-right">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
