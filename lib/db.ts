@@ -32,6 +32,7 @@ export interface Category {
   name: string
   color: string
   icon: string
+  icon_type?: "predefined" | "uploaded" | "custom"
   display_order: number
   created_at: string
   updated_at: string

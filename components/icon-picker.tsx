@@ -557,7 +557,10 @@ export function IconPicker({ isOpen, onClose, onSelect, currentIcon }: IconPicke
     if (selectedIconType === "uploaded" && uploadedImage) {
       onSelect("uploaded", uploadedImage)
     } else if (selectedIconType === "custom") {
-      onSelect("custom", selectedIcon)
+      // Fix: Make sure we're passing the selected custom icon ID correctly
+      if (selectedIcon) {
+        onSelect("custom", selectedIcon)
+      }
     } else {
       onSelect("predefined", selectedIcon)
     }

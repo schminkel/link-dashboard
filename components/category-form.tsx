@@ -32,8 +32,11 @@ const colorOptions = [
 export function CategoryForm({ category, onClose }: CategoryFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showIconPicker, setShowIconPicker] = useState(false)
-  const [selectedIcon, setSelectedIcon] = useState({
-    type: "predefined" as const,
+  const [selectedIcon, setSelectedIcon] = useState<{
+    type: "predefined" | "uploaded" | "custom";
+    value: string;
+  }>({
+    type: category?.icon_type || "predefined",
     value: category?.icon || "folder",
   })
   const [selectedColor, setSelectedColor] = useState(category?.color || "#3B82F6")
@@ -61,6 +64,7 @@ export function CategoryForm({ category, onClose }: CategoryFormProps) {
     setIsSubmitting(true)
     try {
       formData.append("icon", selectedIcon.value)
+      formData.append("icon_type", selectedIcon.type)
       formData.append("color", selectedColor)
 
       if (category) {
@@ -167,7 +171,7 @@ export function CategoryForm({ category, onClose }: CategoryFormProps) {
                     onClick={() => setShowIconPicker(true)}
                     className="w-full justify-start gap-3 bg-slate-800/80 border-slate-600/60 text-slate-100 hover:bg-slate-700/80 hover:border-slate-500/60 transition-all"
                   >
-                    <IconDisplay iconType="predefined" iconValue={selectedIcon.value} className="h-4 w-4" />
+                    <IconDisplay iconType={selectedIcon.type} iconValue={selectedIcon.value} className="h-4 w-4" />
                     <span>Choose Icon</span>
                   </Button>
                 </div>

@@ -121,7 +121,11 @@ export function DraggableTab({
             : {}
         }
       >
-        <IconDisplay iconType="predefined" iconValue={category.icon} className="h-4 w-4" />
+        <IconDisplay 
+          iconType={category.icon_type || "predefined"} 
+          iconValue={category.icon} 
+          className="h-4 w-4" 
+        />
         <span className="font-medium whitespace-nowrap">{category.name}</span>
         {linkCount > 0 && (
           <span

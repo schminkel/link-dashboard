@@ -20,6 +20,7 @@ export async function createCategory(formData: FormData) {
   const name = formData.get("name") as string
   const color = (formData.get("color") as string) || "#3B82F6"
   const icon = (formData.get("icon") as string) || "folder"
+  const iconType = (formData.get("icon_type") as "predefined" | "uploaded" | "custom") || "predefined"
 
   if (!name) {
     throw new Error("Category name is required")
@@ -33,8 +34,8 @@ export async function createCategory(formData: FormData) {
     const nextOrder = maxOrderResult[0]?.next_order || 1
 
     await sql`
-      INSERT INTO categories (name, color, icon, display_order)
-      VALUES (${name}, ${color}, ${icon}, ${nextOrder})
+      INSERT INTO categories (name, color, icon, icon_type, display_order)
+      VALUES (${name}, ${color}, ${icon}, ${iconType}, ${nextOrder})
     `
     revalidatePath("/")
   } catch (error) {
@@ -51,6 +52,7 @@ export async function updateCategory(formData: FormData) {
   const name = formData.get("name") as string
   const color = formData.get("color") as string
   const icon = formData.get("icon") as string
+  const iconType = (formData.get("icon_type") as "predefined" | "uploaded" | "custom") || "predefined"
 
   if (!id || !name) {
     throw new Error("ID and name are required")
@@ -59,7 +61,7 @@ export async function updateCategory(formData: FormData) {
   try {
     await sql`
       UPDATE categories 
-      SET name = ${name}, color = ${color}, icon = ${icon}, updated_at = CURRENT_TIMESTAMP
+      SET name = ${name}, color = ${color}, icon = ${icon}, icon_type = ${iconType}, updated_at = CURRENT_TIMESTAMP
       WHERE id = ${Number.parseInt(id)}
     `
     revalidatePath("/")
