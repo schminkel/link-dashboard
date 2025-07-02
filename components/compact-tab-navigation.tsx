@@ -297,14 +297,15 @@ function CompactTabNavigationContent({
 
           {/* On mobile, the button is positioned with flex-shrink-0 to prevent it from shrinking */}
           <Button
-            variant="ghost"
+            variant="outline"
             size="sm"
             onClick={() => setShowCategoryForm(true)}
             disabled={isReordering}
-            className={`flex-shrink-0 h-8 px-2 text-xs border-slate-600 text-slate-400 hover:text-white hover:bg-slate-800/50 disabled:opacity-50 ${isMobile ? 'ml-2' : ''}`}
+            className={`flex-shrink-0 h-8 ${isMobile ? 'w-8 p-0 ml-2' : 'px-2'} text-xs border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800/50 disabled:opacity-50`}
+            title="Add new tab"
           >
-            <Plus className="h-3 w-3 mr-1" />
-            Tab
+            <Plus className={`h-3 w-3 ${isMobile ? '' : 'mr-1'}`} />
+            {!isMobile && 'Tab'}
           </Button>
         </div>
       </div>

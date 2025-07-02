@@ -2,12 +2,15 @@
 
 import { Button } from "@/components/ui/button"
 import { Plus, LinkIcon } from "lucide-react"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 interface CompactHeaderProps {
   onAddLink: () => void
 }
 
 export function CompactHeader({ onAddLink }: CompactHeaderProps) {
+  const isMobile = useIsMobile();
+  
   return (
     <div className="sticky top-0 z-30 bg-slate-900/95 backdrop-blur-sm border-b border-slate-700/30">
       <div className="container mx-auto px-4 py-3">
@@ -23,10 +26,11 @@ export function CompactHeader({ onAddLink }: CompactHeaderProps) {
           <Button
             onClick={onAddLink}
             size="sm"
-            className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-blue-500/25"
+            className={`bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-blue-500/25 ${isMobile ? 'w-9 h-9 p-0' : ''}`}
+            title="Add new link"
           >
-            <Plus className="h-4 w-4 mr-1" />
-            Add
+            <Plus className={`h-4 w-4 ${isMobile ? '' : 'mr-1'}`} />
+            {!isMobile && 'Add'}
           </Button>
         </div>
       </div>
