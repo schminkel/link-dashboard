@@ -42,7 +42,7 @@ export function EnhancedLinkCard({ link, onEdit }: EnhancedLinkCardProps) {
           bg-gradient-to-br from-slate-900/70 to-slate-800/50 
           border-slate-700/40 backdrop-blur-sm
           hover:border-blue-500/60 hover:shadow-xl hover:shadow-blue-500/10
-          hover:-translate-y-1 hover:scale-[1.02]
+          hover:scale-[1.02]
           active:scale-95
           ${isClicked ? "animate-pulse" : ""}
         `}

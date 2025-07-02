@@ -182,7 +182,7 @@ export function DraggableLinkCard({ link, onEdit, onDragEnd, temporaryOrder }: D
             bg-gradient-to-br from-slate-900/60 to-slate-800/40 
             border-slate-700/50 backdrop-blur-sm
             hover:border-blue-500/50 hover:shadow-2xl
-            hover:shadow-blue-500/20 hover:-translate-y-2
+            hover:shadow-blue-500/20
             active:scale-95
             ${isClicked ? "animate-click-effect" : ""}
             ${isBeingDragged ? "opacity-50 scale-95" : ""}
