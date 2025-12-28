@@ -11,7 +11,6 @@ import { deleteCategory, updateCategoriesOrder } from "@/lib/category-actions"
 import { ReorderSpinner } from "./reorder-spinner"
 import type { Category } from "@/lib/db"
 import { Plus } from "lucide-react"
-import { useIsMobile } from "@/hooks/use-mobile"
 
 interface CompactTabNavigationProps {
   categories: Category[]
@@ -244,8 +243,6 @@ function CompactTabNavigationContent({
     }
   }, [handleTabDragEnd, setDraggedTab])
 
-  const isMobile = useIsMobile()
-  
   return (
 <>
     {showCategoryForm && <CategoryForm category={editingCategory} onClose={handleCloseForm} />}
@@ -253,13 +250,12 @@ function CompactTabNavigationContent({
       <div className="container mx-auto px-4">
         <div
           ref={dropZoneRef}
-          className={`flex items-center gap-1 overflow-x-auto scrollbar-hide py-2 ${isMobile ? 'justify-between' : ''}`}
+          className="flex items-center gap-1 overflow-x-auto scrollbar-hide py-2"
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
         >
-          {/* On mobile, wrap tabs in a scrollable container */}
-          <div className={`flex items-center gap-1 ${isMobile ? 'overflow-x-auto flex-grow scrollbar-hide' : 'min-w-0 flex-1'} relative`}>
+          <div className="flex items-center gap-1 min-w-0 flex-1 relative">
             {localCategories.map((category) => {
               const isTabActive = activeCategory === category.id
               const linkCount = linkCounts[category.id] || 0
@@ -295,20 +291,20 @@ function CompactTabNavigationContent({
             })}
           </div>
 
-          {/* On mobile, the button is positioned with flex-shrink-0 to prevent it from shrinking */}
           <Button
-            variant="outline"
+            variant="ghost"
             size="sm"
             onClick={() => setShowCategoryForm(true)}
             disabled={isReordering}
-            className={`flex-shrink-0 h-8 ${isMobile ? 'w-8 p-0 ml-2' : 'px-2'} text-xs border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800/50 disabled:opacity-50`}
-            title="Add new tab"
+            className="flex-shrink-0 h-8 px-2 text-xs border-slate-600 text-slate-400 hover:text-white hover:bg-slate-800/50 disabled:opacity-50"
           >
-            <Plus className={`h-3 w-3 ${isMobile ? '' : 'mr-1'}`} />
-            {!isMobile && 'Tab'}
+            <Plus className="h-3 w-3 mr-1" />
+            Tab
           </Button>
         </div>
       </div>
+
+      
     </div>
     </>
   )

@@ -1,14 +1,8 @@
-"use client"
-
-import { useStandaloneMode } from "@/hooks/use-standalone"
-
 export function EnhancedBackground() {
-  const isStandalone = useStandaloneMode();
-  
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden">
       {/* Base gradient */}
-      <div className={`absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 ${isStandalone ? 'pt-0' : ''}`} />
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
 
       {/* Subtle grid pattern */}
       <div
