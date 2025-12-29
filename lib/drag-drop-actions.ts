@@ -9,7 +9,7 @@ export async function updateLinksOrder(linkIds: number[]) {
     for (let i = 0; i < linkIds.length; i++) {
       await sql`
         UPDATE links 
-        SET display_order = ${i + 1}, updated_at = CURRENT_TIMESTAMP
+        SET display_order = ${i + 1}, updated_at = datetime('now')
         WHERE id = ${linkIds[i]}
       `
     }

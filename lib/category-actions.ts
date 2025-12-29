@@ -61,7 +61,7 @@ export async function updateCategory(formData: FormData) {
   try {
     await sql`
       UPDATE categories 
-      SET name = ${name}, color = ${color}, icon = ${icon}, icon_type = ${iconType}, updated_at = CURRENT_TIMESTAMP
+      SET name = ${name}, color = ${color}, icon = ${icon}, icon_type = ${iconType}, updated_at = datetime('now')
       WHERE id = ${Number.parseInt(id)}
     `
     revalidatePath("/")
@@ -103,7 +103,7 @@ export async function updateCategoriesOrder(categoryIds: number[]) {
     for (let i = 0; i < categoryIds.length; i++) {
       await sql`
         UPDATE categories 
-        SET display_order = ${i + 1}, updated_at = CURRENT_TIMESTAMP
+        SET display_order = ${i + 1}, updated_at = datetime('now')
         WHERE id = ${categoryIds[i]}
       `
     }

@@ -87,7 +87,7 @@ export async function updateLink(formData: FormData) {
     await sql`
       UPDATE links 
       SET title = ${title}, url = ${url}, icon_type = ${validIconType}, 
-          icon_value = ${iconValue}, category_id = ${categoryId}, updated_at = CURRENT_TIMESTAMP
+          icon_value = ${iconValue}, category_id = ${categoryId}, updated_at = datetime('now')
       WHERE id = ${Number.parseInt(id)}
     `
     revalidatePath("/")
