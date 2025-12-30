@@ -20,7 +20,7 @@ export function PasswordProtection({ children }: PasswordProtectionProps) {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
-  const CORRECT_PASSWORD = "123"
+  const CORRECT_PASSWORD = process.env.NEXT_PUBLIC_DASHBOARD_PASSWORD || "123"
 
   useEffect(() => {
     // Check if user is already authenticated
