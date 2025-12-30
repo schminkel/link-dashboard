@@ -9,7 +9,8 @@ export async function getCustomIcons() {
       SELECT * FROM custom_icons 
       ORDER BY created_at DESC
     `
-    return icons
+    // Serialize to plain objects to avoid Next.js serialization errors
+    return JSON.parse(JSON.stringify(icons))
   } catch (error) {
     console.error("Failed to fetch custom icons:", error)
     return []
@@ -23,7 +24,9 @@ export async function getCustomIconById(id: number) {
       WHERE id = ${id}
       LIMIT 1
     `
-    return icons[0] || null
+    // Serialize to plain objects to avoid Next.js serialization errors
+    const serialized = JSON.parse(JSON.stringify(icons))
+    return serialized[0] || null
   } catch (error) {
     console.error("Failed to fetch custom icon:", error)
     return null

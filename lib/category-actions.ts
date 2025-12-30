@@ -9,7 +9,8 @@ export async function getCategories() {
       SELECT * FROM categories 
       ORDER BY display_order ASC, created_at ASC
     `
-    return categories
+    // Serialize to plain objects to avoid Next.js serialization errors
+    return JSON.parse(JSON.stringify(categories))
   } catch (error) {
     console.error("Failed to fetch categories:", error)
     return []
@@ -121,7 +122,8 @@ export async function getLinksByCategory(categoryId: number) {
       WHERE category_id = ${categoryId}
       ORDER BY display_order ASC, created_at ASC
     `
-    return links
+    // Serialize to plain objects to avoid Next.js serialization errors
+    return JSON.parse(JSON.stringify(links))
   } catch (error) {
     console.error("Failed to fetch links by category:", error)
     return []

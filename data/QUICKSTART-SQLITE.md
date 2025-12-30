@@ -1,6 +1,12 @@
 # SQLite Quick Start
 
-## Setup
+## Local vs Remote Database
+
+This project supports both:
+- **Local SQLite**: File-based database on your machine
+- **Remote LibSQL**: Cloud-hosted database via [Turso](https://turso.tech)
+
+## Setup - Local Database
 
 1. **Install dependencies:**
    ```bash
@@ -25,23 +31,39 @@
    pnpm dev
    ```
 
-## Troubleshooting
+## Setup - Remote Database (Turso)
 
-**Error: "Could not locate the bindings file"**
-- Run `pnpm rebuild better-sqlite3` to compile native bindings
-- Ensure you have build tools installed (Xcode Command Line Tools on macOS)
+1. **Configure environment:**
+   
+   Create `.env` file:
+   ```bash
+   DATABASE_URI=libsql://your-database.turso.io
+   DATABASE_AUTH_TOKEN=your-auth-token-here
+   ```
 
-**Build script blocked by pnpm**
-- Run `pnpm approve-builds` and select `better-sqlite3`
+3. **Create database schema:**
+   
+   Import the schema to Turso:
+   ```bash
+   turso db import ./link-dashboard-01.db
+   ```
+   
+   Or manually execute the schema using Turso CLI or dashboard.
+
+4. **Start development server:**
+   ```bash
+   pnpm dev
+   ```
 
 ## Configuration
 
-Database is stored in `./data/database.db` by default.
-
-To customize the path, create `.env`:
+### Local Database
+Create `.env`:
 ```bash
-DATABASE_PATH=./data/database.db
+DATABASE_PATH=./data/database.db  # Optional, this is the default
 ```
+
+**Note:** If `DATABASE_URI` and `DATABASE_AUTH_TOKEN` are set, the remote database takes priority.
 
 ## Database Management
 

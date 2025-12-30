@@ -11,7 +11,8 @@ export async function getLinks() {
       LEFT JOIN categories c ON l.category_id = c.id
       ORDER BY l.display_order ASC, l.created_at ASC
     `
-    return links
+    // Serialize to plain objects to avoid Next.js serialization errors
+    return JSON.parse(JSON.stringify(links))
   } catch (error) {
     console.error("Failed to fetch links:", error)
     return []
@@ -27,7 +28,8 @@ export async function getLinksByCategory(categoryId: number) {
       WHERE l.category_id = ${categoryId}
       ORDER BY l.display_order ASC, l.created_at ASC
     `
-    return links
+    // Serialize to plain objects to avoid Next.js serialization errors
+    return JSON.parse(JSON.stringify(links))
   } catch (error) {
     console.error("Failed to fetch links by category:", error)
     return []
