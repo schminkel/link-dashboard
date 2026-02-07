@@ -59,7 +59,7 @@ export function DraggableTab({
     <div
       ref={tabRef}
       className={`
-        relative group flex-shrink-0 transition-all duration-300 ease-in-out
+        relative group shrink-0 transition-all duration-300 ease-in-out
         ${dragStarted || isDragging ? "opacity-50 scale-95 z-50" : ""}
         ${isReordering ? "animate-pulse" : ""}
         ${hasTemporaryOrder ? "ring-2 ring-blue-400/50 shadow-lg shadow-blue-400/20" : ""}
@@ -108,7 +108,7 @@ export function DraggableTab({
         className={`
           relative h-12 px-4 rounded-lg transition-all duration-200 flex items-center gap-3
           ${
-            isActive ? "bg-gradient-to-r text-white shadow-lg" : "text-slate-300 hover:text-white hover:bg-slate-800/50"
+            isActive ? "bg-linear-to-r text-white shadow-lg" : "text-slate-300 hover:text-white hover:bg-slate-800/50"
           }
           ${isReordering ? "opacity-75 cursor-not-allowed" : ""}
         `}
