@@ -258,23 +258,14 @@ export function DraggableLinkCard({ link, onEdit, onDragEnd, temporaryOrder }: D
           <CardContent className="pt-0">
             {/* URL with full width */}
             <div
-              className={`flex items-center gap-2 text-sm transition-colors ${
+              className={`flex items-center gap-1.5 text-[11px] transition-colors ${
                 isItemReordering ? "text-slate-300" : "text-slate-400 group-hover:text-slate-300"
               }`}
             >
-              <ExternalLink className="h-4 w-4 flex-shrink-0" />
-              <span className="truncate font-medium">{link.url}</span>
+              <ExternalLink className="h-2.5 w-2.5 shrink-0" />
+              <span className="truncate font-normal">{link.url}</span>
             </div>
 
-            {/* Additional space for potential metadata */}
-            <div className="mt-3 flex items-center justify-between text-xs text-slate-500">
-              <span>Click to open</span>
-              <div className="flex items-center gap-1">
-                <div className="w-1 h-1 bg-slate-600 rounded-full"></div>
-                <div className="w-1 h-1 bg-slate-600 rounded-full"></div>
-                <div className="w-1 h-1 bg-slate-600 rounded-full"></div>
-              </div>
-            </div>
           </CardContent>
         </Card>
       </div>
